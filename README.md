@@ -9,7 +9,7 @@ FoxTrace 双端环境管理器配套的**自编译定制内核**下载仓库。�
 | Chrome（FoxChrome） | Chromium 154.0.8037.0 | [FoxChrome-154.0.8037.0-win64.zip](../../releases/download/chromium-154.0.8037.0/FoxChrome-154.0.8037.0-win64.zip) | 274 MB | `CA61F2E74EA94F2C` |
 | Firefox | 155.0 | [Firefox-155.0-win64.zip](../../releases/download/firefox-155.0/Firefox-155.0-win64.zip) | 134 MB | `B585BF3247E0CCDA` |
 
-完整 SHA256 见各 Release 说明或 `SHA256SUMS.txt`（随 Release 附带）。解压后体积：Chrome 约 715 MB，Firefox 约 366 MB。
+完整 SHA256 见各 Release 附件（Chrome 为 `SHA256SUMS-chrome.txt`，Firefox 为 `SHA256SUMS-firefox.txt`）。解压后体积：Chrome 约 715 MB，Firefox 约 366 MB。
 
 ## 安装方法
 
