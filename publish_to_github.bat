@@ -9,13 +9,19 @@ echo   FoxTrace 内核一键发布到 GitHub
 echo   本脚本可以反复运行，已完成的步骤会自动跳过
 echo ============================================================
 echo.
+echo   【发布前必读】
+echo   1) Firefox 内核含启动授权保护，打包前务必确认内核目录里
+echo      没有 browser_key 之类的凭据文件，否则等于把钥匙一起发出去。
+echo   2) 内核与服务端必须成对发布：新内核只认新版管理器，单边升级
+echo      会让所有环境启动即退出。
+echo.
 
 if not exist "..\release-assets\FoxChrome-154.0.8037.0-win64.zip" (
     echo [错误] 找不到 ..\release-assets\FoxChrome-154.0.8037.0-win64.zip
     goto fail
 )
-if not exist "..\release-assets\Firefox-155.0-win64.zip" (
-    echo [错误] 找不到 ..\release-assets\Firefox-155.0-win64.zip
+if not exist "..\release-assets\Firefox-155.0-win64-20260915.zip" (
+    echo [错误] 找不到 ..\release-assets\Firefox-155.0-win64-20260915.zip
     goto fail
 )
 
@@ -146,20 +152,28 @@ if errorlevel 1 (
 :chrome_done
 echo [步骤 6/6] Chrome 内核完成
 echo.
-"!GH!" release view firefox-155.0 -R "!GH_USER!/foxtrace-kernels" --json assets --jq ".assets[].name" 2>nul | findstr /C:"Firefox-155.0-win64.zip" >nul
-if not errorlevel 1 goto firefox_done
+"!GH!" release view firefox-155.0 -R "!GH_USER!/foxtrace-kernels" --json assets --jq ".assets[].name" 2>nul | findstr /C:"Firefox-155.0-win64-20260915.zip" >nul
+if not errorlevel 1 (
+    echo [步骤 6/6] 本版本 Firefox 内核已上传，跳过上传
+    goto firefox_sync
+)
 "!GH!" release view firefox-155.0 -R "!GH_USER!/foxtrace-kernels" >nul 2>nul
 if errorlevel 1 (
-    echo [步骤 6/6] 正在上传 Firefox 内核 134MB，需要几分钟，请勿关闭窗口...
-    "!GH!" release create firefox-155.0 -R "!GH_USER!/foxtrace-kernels" "..\release-assets\Firefox-155.0-win64.zip" "..\release-assets\SHA256SUMS-firefox.txt" --title "Firefox 155.0 kernel" --notes "FoxTrace Firefox kernel. Firefox 155.0 custom build, bundled geckodriver 0.37.1. Extract next to the FoxTrace manager exe."
+    echo [步骤 6/6] 正在上传 Firefox 内核 128MB，需要几分钟，请勿关闭窗口...
+    "!GH!" release create firefox-155.0 -R "!GH_USER!/foxtrace-kernels" "..\release-assets\Firefox-155.0-win64-20260915.zip" "..\release-assets\SHA256SUMS-firefox.txt" --title "FoxTrace Firefox 155.0 内核（含启动授权保护）" --notes-file "RELEASE_NOTES-firefox.md"
 ) else (
     echo [步骤 6/6] Firefox Release 已存在，补传内核文件...
-    "!GH!" release upload firefox-155.0 -R "!GH_USER!/foxtrace-kernels" "..\release-assets\Firefox-155.0-win64.zip" "..\release-assets\SHA256SUMS-firefox.txt" --clobber
+    "!GH!" release upload firefox-155.0 -R "!GH_USER!/foxtrace-kernels" "..\release-assets\Firefox-155.0-win64-20260915.zip" "..\release-assets\SHA256SUMS-firefox.txt" --clobber
 )
 if errorlevel 1 (
     echo [错误] Firefox 内核上传失败，重跑本脚本即可续传
     goto fail
 )
+:firefox_sync
+echo [步骤 6/6] 同步发布说明...
+"!GH!" release edit firefox-155.0 -R "!GH_USER!/foxtrace-kernels" --title "FoxTrace Firefox 155.0 内核（含启动授权保护）" --notes-file "RELEASE_NOTES-firefox.md" >nul 2>nul
+echo [步骤 6/6] 清除历史上的无授权内核资产（如存在）...
+"!GH!" release delete-asset firefox-155.0 "Firefox-155.0-win64.zip" -R "!GH_USER!/foxtrace-kernels" --yes >nul 2>nul
 :firefox_done
 echo [步骤 6/6] Firefox 内核完成
 echo.
