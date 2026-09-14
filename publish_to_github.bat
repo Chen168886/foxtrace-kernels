@@ -152,7 +152,7 @@ if errorlevel 1 (
 :chrome_done
 echo [步骤 6/6] Chrome 内核完成
 echo.
-"!GH!" release view firefox-155.0 -R "!GH_USER!/foxtrace-kernels" --json assets --jq ".assets[].name" 2>nul | findstr /C:"Firefox-155.0-win64-20260915.zip" >nul
+"!GH!" release view firefox-155.0 -R "!GH_USER!/foxtrace-kernels" --json assets --jq ".assets[].name" 2>nul | findstr /C:"Firefox-155.0-win64-20260915b.zip" >nul
 if not errorlevel 1 (
     echo [步骤 6/6] 本版本 Firefox 内核已上传，跳过上传
     goto firefox_sync
@@ -160,10 +160,10 @@ if not errorlevel 1 (
 "!GH!" release view firefox-155.0 -R "!GH_USER!/foxtrace-kernels" >nul 2>nul
 if errorlevel 1 (
     echo [步骤 6/6] 正在上传 Firefox 内核 128MB，需要几分钟，请勿关闭窗口...
-    "!GH!" release create firefox-155.0 -R "!GH_USER!/foxtrace-kernels" "..\release-assets\Firefox-155.0-win64-20260915.zip" "..\release-assets\SHA256SUMS-firefox.txt" --title "FoxTrace Firefox 155.0 内核（含启动授权保护）" --notes-file "RELEASE_NOTES-firefox.md"
+    "!GH!" release create firefox-155.0 -R "!GH_USER!/foxtrace-kernels" "..\release-assets\Firefox-155.0-win64-20260915b.zip" "..\release-assets\SHA256SUMS-firefox.txt" --title "FoxTrace Firefox 155.0 内核（含启动授权保护）" --notes-file "RELEASE_NOTES-firefox.md"
 ) else (
     echo [步骤 6/6] Firefox Release 已存在，补传内核文件...
-    "!GH!" release upload firefox-155.0 -R "!GH_USER!/foxtrace-kernels" "..\release-assets\Firefox-155.0-win64-20260915.zip" "..\release-assets\SHA256SUMS-firefox.txt" --clobber
+    "!GH!" release upload firefox-155.0 -R "!GH_USER!/foxtrace-kernels" "..\release-assets\Firefox-155.0-win64-20260915b.zip" "..\release-assets\SHA256SUMS-firefox.txt" --clobber
 )
 if errorlevel 1 (
     echo [错误] Firefox 内核上传失败，重跑本脚本即可续传

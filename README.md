@@ -51,7 +51,7 @@ GitHub 在国内部分网络环境下直连缓慢或超时。两种解决办法�
 **手动下载**：把下面的加速前缀直接拼接在下载直链前面即可，例如：
 
 ```
-https://gh-proxy.com/https://github.com/Chen168886/foxtrace-kernels/releases/download/firefox-155.0/Firefox-155.0-win64.zip
+https://gh-proxy.com/https://github.com/Chen168886/foxtrace-kernels/releases/download/firefox-155.0/Firefox-155.0-win64-20260915b.zip
 ```
 
 常用前缀（任选其一，公共加速服务稳定性不保证，失效可换一个）：
