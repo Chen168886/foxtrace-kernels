@@ -31,4 +31,4 @@ FoxTrace 双端环境管理器配套的定制 Firefox 内核。
 - 本内核为自编译定制版本，随包驱动与内核版本匹配，**请勿混用**官方浏览器驱动。
 - 系统要求：Windows 10 / 11 64 位；无需额外安装运行库（VC 运行库已随包附带）。
 - 国内下载缓慢时，可在直链前拼接加速前缀，例如：
-  `https://gh-proxy.com/https://github.com/Chen168886/foxtrace-kernels/releases/download/firefox-155.0/Firefox-155.0-win64-20260915.zip`
+  `https://gh-proxy.com/https://github.com/Chen168886/foxtrace-kernels/releases/download/firefox-155.0/Firefox-155.0-win64-20260915b.zip`

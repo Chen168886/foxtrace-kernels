@@ -73,7 +73,7 @@ https://gh-proxy.com/https://github.com/Chen168886/foxtrace-kernels/releases/dow
 两个内核均为定制自编译版本，与管理器配套使用（驱动与内核版本匹配，请勿混用官方浏览器驱动）：
 
 - **FoxChrome 154.0.8037.0**：基于 Chromium 154.0.8037.0 源码自编译。定制内容：工作室品牌标识、`--foxtrace-env-number` 环境序号工具栏显示、QA 自动化接管时 `navigator.webdriver` 固定为 `false`（保证接管测试环境与真实用户环境表现一致）、内建启动授权保护（与 Firefox 内核同代）。
-- **Firefox 155.0**：基于 Mozilla Firefox 155.0 源码自编译（BuildID 20260915005256），随包附带 geckodriver 0.37.1。内建启动授权保护，**仅限通过最新版 FoxTrace 管理器在已授权环境下使用**（详见上方「使用要求」）。
+- **Firefox 155.0**：基于 Mozilla Firefox 155.0 源码自编译（BuildID 20260915050708），随包附带 geckodriver 0.37.1。内建启动授权保护，**仅限通过最新版 FoxTrace 管理器在已授权环境下使用**（详见上方「使用要求」）。
 
 ## 开源许可
 
