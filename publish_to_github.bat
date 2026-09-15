@@ -10,14 +10,14 @@ echo   本脚本可以反复运行，已完成的步骤会自动跳过
 echo ============================================================
 echo.
 echo   【发布前必读】
-echo   1) Firefox 内核含启动授权保护，打包前务必确认内核目录里
+echo   1) Firefox / Chromium 内核均含启动授权保护，打包前务必确认内核目录里
 echo      没有 browser_key 之类的凭据文件，否则等于把钥匙一起发出去。
-echo   2) 内核与服务端必须成对发布：新内核只认新版管理器，单边升级
+echo   2) 内核与管理器必须成对发布：新内核只认新版管理器，单边升级
 echo      会让所有环境启动即退出。
 echo.
 
-if not exist "..\release-assets\FoxChrome-154.0.8037.0-win64.zip" (
-    echo [错误] 找不到 ..\release-assets\FoxChrome-154.0.8037.0-win64.zip
+if not exist "..\release-assets\FoxChrome-154.0.8037.0-win64-20260915.zip" (
+    echo [错误] 找不到 ..\release-assets\FoxChrome-154.0.8037.0-win64-20260915.zip
     goto fail
 )
 if not exist "..\release-assets\Firefox-155.0-win64-20260915.zip" (
@@ -135,20 +135,22 @@ echo [步骤 5/6] 代码已推送
 echo.
 
 REM ===== step 6/6 upload kernels =====
-"!GH!" release view chromium-154.0.8037.0 -R "!GH_USER!/foxtrace-kernels" --json assets --jq ".assets[].name" 2>nul | findstr /C:"FoxChrome-154.0.8037.0-win64.zip" >nul
+"!GH!" release view chromium-154.0.8037.0 -R "!GH_USER!/foxtrace-kernels" --json assets --jq ".assets[].name" 2>nul | findstr /C:"FoxChrome-154.0.8037.0-win64-20260915.zip" >nul
 if not errorlevel 1 goto chrome_done
 "!GH!" release view chromium-154.0.8037.0 -R "!GH_USER!/foxtrace-kernels" >nul 2>nul
 if errorlevel 1 (
-    echo [步骤 6/6] 正在上传 Chrome 内核 274MB，需要几分钟，请勿关闭窗口...
-    "!GH!" release create chromium-154.0.8037.0 -R "!GH_USER!/foxtrace-kernels" "..\release-assets\FoxChrome-154.0.8037.0-win64.zip" "..\release-assets\SHA256SUMS-chrome.txt" --title "FoxChrome 154.0.8037.0 Chromium kernel" --notes "FoxTrace Chrome kernel. Chromium 154.0.8037.0 custom build, bundled chromedriver. Extract next to the FoxTrace manager exe."
+    echo [步骤 6/6] 正在上传 Chrome 内核 273MB，需要几分钟，请勿关闭窗口...
+    "!GH!" release create chromium-154.0.8037.0 -R "!GH_USER!/foxtrace-kernels" "..\release-assets\FoxChrome-154.0.8037.0-win64-20260915.zip" "..\release-assets\SHA256SUMS-chrome.txt" --title "FoxChrome 154.0.8037.0 Chromium kernel" --notes "FoxTrace Chrome kernel. Chromium 154.0.8037.0 custom build, bundled chromedriver. Extract next to the FoxTrace manager exe."
 ) else (
     echo [步骤 6/6] Chrome Release 已存在，补传内核文件...
-    "!GH!" release upload chromium-154.0.8037.0 -R "!GH_USER!/foxtrace-kernels" "..\release-assets\FoxChrome-154.0.8037.0-win64.zip" "..\release-assets\SHA256SUMS-chrome.txt" --clobber
+    "!GH!" release upload chromium-154.0.8037.0 -R "!GH_USER!/foxtrace-kernels" "..\release-assets\FoxChrome-154.0.8037.0-win64-20260915.zip" "..\release-assets\SHA256SUMS-chrome.txt" --clobber
 )
 if errorlevel 1 (
     echo [错误] Chrome 内核上传失败，重跑本脚本即可续传
     goto fail
 )
+echo [步骤 6/6] 清除历史上的无守卫 Chrome 内核资产（如存在）...
+"!GH!" release delete-asset chromium-154.0.8037.0 "FoxChrome-154.0.8037.0-win64.zip" -R "!GH_USER!/foxtrace-kernels" --yes >nul 2>nul
 :chrome_done
 echo [步骤 6/6] Chrome 内核完成
 echo.
@@ -185,7 +187,7 @@ echo   下载页：
 echo   https://github.com/!GH_USER!/foxtrace-kernels/releases
 echo.
 echo   Chrome 内核直链：
-echo   https://github.com/!GH_USER!/foxtrace-kernels/releases/download/chromium-154.0.8037.0/FoxChrome-154.0.8037.0-win64.zip
+echo   https://github.com/!GH_USER!/foxtrace-kernels/releases/download/chromium-154.0.8037.0/FoxChrome-154.0.8037.0-win64-20260915.zip
 echo.
 echo   Firefox 内核直链：
 echo   https://github.com/!GH_USER!/foxtrace-kernels/releases/download/firefox-155.0/Firefox-155.0-win64.zip
