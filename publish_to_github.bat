@@ -10,18 +10,21 @@ echo   本脚本可以反复运行，已完成的步骤会自动跳过
 echo ============================================================
 echo.
 echo   【发布前必读】
-echo   1) Firefox / Chromium 内核均含启动授权保护，打包前务必确认内核目录里
-echo      没有 browser_key 之类的凭据文件，否则等于把钥匙一起发出去。
-echo   2) 内核与管理器必须成对发布：新内核只认新版管理器，单边升级
-echo      会让所有环境启动即退出。
+echo   Firefox 内核与管理器必须成对发布：只升一边会让环境启动即退出。
+echo   发完记得同步 kernel_downloader.py 里的 zip_bytes / sha256。
 echo.
 
-if not exist "..\release-assets\FoxChrome-154.0.8037.0-win64-20260915.zip" (
-    echo [错误] 找不到 ..\release-assets\FoxChrome-154.0.8037.0-win64-20260915.zip
+set "ZIP=Firefox-155.0-win64-20261002.zip"
+set "SUMS=SHA256SUMS-firefox.txt"
+set "TITLE=FoxTrace Firefox 155.0 内核"
+set "TAG=firefox-155.0"
+
+if not exist "..\release-assets\!ZIP!" (
+    echo [错误] 找不到 ..\release-assets\!ZIP!
     goto fail
 )
-if not exist "..\release-assets\Firefox-155.0-win64-20260915.zip" (
-    echo [错误] 找不到 ..\release-assets\Firefox-155.0-win64-20260915.zip
+if not exist "..\release-assets\!SUMS!" (
+    echo [错误] 找不到 ..\release-assets\!SUMS!
     goto fail
 )
 
@@ -51,10 +54,6 @@ if exist "C:\Program Files\Git\cmd\git.exe" (
     set "PATH=%PATH%;C:\Program Files\Git\cmd"
     goto git_ready
 )
-if exist "%USERPROFILE%\.cache\codex-runtimes\codex-primary-runtime\dependencies\native\git\cmd\git.exe" (
-    set "PATH=%PATH%;%USERPROFILE%\.cache\codex-runtimes\codex-primary-runtime\dependencies\native\git\cmd"
-    goto git_ready
-)
 echo [步骤 2/6] 未检测到 git，正在自动安装 Git for Windows，弹出的系统确认窗口请点“是”...
 winget install --id Git.Git -e --accept-source-agreements --accept-package-agreements
 if exist "C:\Program Files\Git\cmd\git.exe" (
@@ -76,7 +75,7 @@ echo     1. 窗口会显示一个 8 位一次性代码，例如 ABCD-1234，先�
 echo     2. 按回车，浏览器会自动打开 github.com/login/device
 echo        没有自动打开就自己在浏览器输入这个网址
 echo     3. 浏览器里如果要求登录 GitHub，就正常登录你的账号
-echo     4. 粘贴 8 位代码，点 Continue，再点 Authorize github
+echo     4. 粘贴 8 位代码，点 Continue，再点 Authorize
 echo     5. 窗口出现 Authentication complete 即成功
 echo.
 echo     说明：这是 GitHub 官方的设备授权流程，不是中毒也不是授权过期；
@@ -134,49 +133,23 @@ if errorlevel 1 (
 echo [步骤 5/6] 代码已推送
 echo.
 
-REM ===== step 6/6 upload kernels =====
-"!GH!" release view chromium-154.0.8037.0 -R "!GH_USER!/foxtrace-kernels" --json assets --jq ".assets[].name" 2>nul | findstr /C:"FoxChrome-154.0.8037.0-win64-20260915.zip" >nul
-if not errorlevel 1 goto chrome_done
-"!GH!" release view chromium-154.0.8037.0 -R "!GH_USER!/foxtrace-kernels" >nul 2>nul
+REM ===== step 6/6 upload kernel =====
+echo [步骤 6/6] 上传 Firefox 内核 128MB，需要几分钟，请勿关闭窗口...
+"!GH!" release view "!TAG!" -R "!GH_USER!/foxtrace-kernels" >nul 2>nul
 if errorlevel 1 (
-    echo [步骤 6/6] 正在上传 Chrome 内核 273MB，需要几分钟，请勿关闭窗口...
-    "!GH!" release create chromium-154.0.8037.0 -R "!GH_USER!/foxtrace-kernels" "..\release-assets\FoxChrome-154.0.8037.0-win64-20260915.zip" "..\release-assets\SHA256SUMS-chrome.txt" --title "FoxChrome 154.0.8037.0 Chromium kernel" --notes "FoxTrace Chrome kernel. Chromium 154.0.8037.0 custom build, bundled chromedriver. Extract next to the FoxTrace manager exe."
+    "!GH!" release create "!TAG!" -R "!GH_USER!/foxtrace-kernels" "..\release-assets\!ZIP!" "..\release-assets\!SUMS!" --title "!TITLE!" --notes-file "RELEASE_NOTES-firefox.md"
 ) else (
-    echo [步骤 6/6] Chrome Release 已存在，补传内核文件...
-    "!GH!" release upload chromium-154.0.8037.0 -R "!GH_USER!/foxtrace-kernels" "..\release-assets\FoxChrome-154.0.8037.0-win64-20260915.zip" "..\release-assets\SHA256SUMS-chrome.txt" --clobber
+    "!GH!" release edit "!TAG!" -R "!GH_USER!/foxtrace-kernels" --title "!TITLE!" --notes-file "RELEASE_NOTES-firefox.md" >nul 2>nul
+    "!GH!" release upload "!TAG!" -R "!GH_USER!/foxtrace-kernels" "..\release-assets\!ZIP!" "..\release-assets\!SUMS!" --clobber
 )
 if errorlevel 1 (
-    echo [错误] Chrome 内核上传失败，重跑本脚本即可续传
+    echo [错误] 内核上传失败，重跑本脚本即可续传
     goto fail
 )
-echo [步骤 6/6] 清除历史上的无守卫 Chrome 内核资产（如存在）...
-"!GH!" release delete-asset chromium-154.0.8037.0 "FoxChrome-154.0.8037.0-win64.zip" -R "!GH_USER!/foxtrace-kernels" --yes >nul 2>nul
-:chrome_done
-echo [步骤 6/6] Chrome 内核完成
-echo.
-"!GH!" release view firefox-155.0 -R "!GH_USER!/foxtrace-kernels" --json assets --jq ".assets[].name" 2>nul | findstr /C:"Firefox-155.0-win64-20260915b.zip" >nul
-if not errorlevel 1 (
-    echo [步骤 6/6] 本版本 Firefox 内核已上传，跳过上传
-    goto firefox_sync
-)
-"!GH!" release view firefox-155.0 -R "!GH_USER!/foxtrace-kernels" >nul 2>nul
-if errorlevel 1 (
-    echo [步骤 6/6] 正在上传 Firefox 内核 128MB，需要几分钟，请勿关闭窗口...
-    "!GH!" release create firefox-155.0 -R "!GH_USER!/foxtrace-kernels" "..\release-assets\Firefox-155.0-win64-20260915b.zip" "..\release-assets\SHA256SUMS-firefox.txt" --title "FoxTrace Firefox 155.0 内核（含启动授权保护）" --notes-file "RELEASE_NOTES-firefox.md"
-) else (
-    echo [步骤 6/6] Firefox Release 已存在，补传内核文件...
-    "!GH!" release upload firefox-155.0 -R "!GH_USER!/foxtrace-kernels" "..\release-assets\Firefox-155.0-win64-20260915b.zip" "..\release-assets\SHA256SUMS-firefox.txt" --clobber
-)
-if errorlevel 1 (
-    echo [错误] Firefox 内核上传失败，重跑本脚本即可续传
-    goto fail
-)
-:firefox_sync
-echo [步骤 6/6] 同步发布说明...
-"!GH!" release edit firefox-155.0 -R "!GH_USER!/foxtrace-kernels" --title "FoxTrace Firefox 155.0 内核（含启动授权保护）" --notes-file "RELEASE_NOTES-firefox.md" >nul 2>nul
-echo [步骤 6/6] 清除历史上的无授权内核资产（如存在）...
-"!GH!" release delete-asset firefox-155.0 "Firefox-155.0-win64.zip" -R "!GH_USER!/foxtrace-kernels" --yes >nul 2>nul
-:firefox_done
+echo [步骤 6/6] 清理历史上的旧版 / 带旧凭据文件的资产（如存在）...
+"!GH!" release delete-asset "!TAG!" "Firefox-155.0-win64-20260915b.zip" -R "!GH_USER!/foxtrace-kernels" --yes >nul 2>nul
+"!GH!" release delete-asset "!TAG!" "Firefox-155.0-win64-20260915.zip" -R "!GH_USER!/foxtrace-kernels" --yes >nul 2>nul
+"!GH!" release delete-asset "!TAG!" "Firefox-155.0-win64.zip" -R "!GH_USER!/foxtrace-kernels" --yes >nul 2>nul
 echo [步骤 6/6] Firefox 内核完成
 echo.
 
@@ -186,11 +159,8 @@ echo.
 echo   下载页：
 echo   https://github.com/!GH_USER!/foxtrace-kernels/releases
 echo.
-echo   Chrome 内核直链：
-echo   https://github.com/!GH_USER!/foxtrace-kernels/releases/download/chromium-154.0.8037.0/FoxChrome-154.0.8037.0-win64-20260915.zip
-echo.
 echo   Firefox 内核直链：
-echo   https://github.com/!GH_USER!/foxtrace-kernels/releases/download/firefox-155.0/Firefox-155.0-win64.zip
+echo   https://github.com/!GH_USER!/foxtrace-kernels/releases/download/!TAG!/!ZIP!
 echo ============================================================
 start "" "https://github.com/!GH_USER!/foxtrace-kernels/releases"
 pause
