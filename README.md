@@ -7,7 +7,7 @@ FoxTrace 双端环境管理器配套的**自编译定制内核**下载仓库。�
 | 内核 | 版本 | 下载文件 | 大小 | SHA256（前 16 位） |
 | --- | --- | --- | --- | --- |
 | Firefox | 155.0 | [Firefox-155.0-win64-20261007.zip](../../releases/download/firefox-155.0/Firefox-155.0-win64-20261007.zip) | 128.6 MB | `8F8EDB790E5BA365` |
-| Chromium | 154.0.8037.0 | [FoxChrome-154.0.8037.0-win64-20261007b.zip](../../releases/download/chromium-154.0/FoxChrome-154.0.8037.0-win64-20261007b.zip) | 273.2 MB | `49039F5A0F2D7CB1` |
+| Chromium | 154.0.8037.0 | [FoxChrome-154.0.8037.0-win64-20261007c.zip](../../releases/download/chromium-154.0/FoxChrome-154.0.8037.0-win64-20261007c.zip) | 273.2 MB | `3B22C33F663709E6` |
 
 完整 SHA256 见 Release 附件 `SHA256SUMS-firefox.txt` / `SHA256SUMS-chromium.txt`。
 解压后：Firefox 约 340 MB（8931 个条目，顶层目录 `firefox155\`），Chromium 约 715 MB（522 个条目，顶层目录 `chromium154\`）。
@@ -61,7 +61,7 @@ GitHub 在国内部分网络环境下直连缓慢或超时。两种解决办法�
 
 ```
 https://gh-proxy.com/https://github.com/Chen168886/foxtrace-kernels/releases/download/firefox-155.0/Firefox-155.0-win64-20261007.zip
-https://gh-proxy.com/https://github.com/Chen168886/foxtrace-kernels/releases/download/chromium-154.0/FoxChrome-154.0.8037.0-win64-20261007b.zip
+https://gh-proxy.com/https://github.com/Chen168886/foxtrace-kernels/releases/download/chromium-154.0/FoxChrome-154.0.8037.0-win64-20261007c.zip
 ```
 
 常用前缀（任选其一，公共加速服务稳定性不保证，失效可换一个）：
