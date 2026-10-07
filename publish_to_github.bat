@@ -10,11 +10,13 @@ echo   本脚本可以反复运行，已完成的步骤会自动跳过
 echo ============================================================
 echo.
 echo   【发布前必读】
-echo   Firefox 内核与管理器必须成对发布：只升一边会让环境启动即退出。
-echo   发完记得同步 kernel_downloader.py 里的 zip_bytes / sha256。
+echo   内核与管理器建议同批次更新：内核的定制项由管理器的环境偏好驱动，
+echo   管理器太旧时新增的定制项不会生效（**不会**导致启动失败 —— 守卫已于 2026-10-02 下线）。
+echo   发完记得同步 kernel_downloader.py 里的 url / zip_name / zip_bytes / sha256，
+echo   管理器的内核下载对这三项做硬校验，不同步会让客户下载时报"校验不通过"。
 echo.
 
-set "ZIP=Firefox-155.0-win64-20261002.zip"
+set "ZIP=Firefox-155.0-win64-20261007.zip"
 set "SUMS=SHA256SUMS-firefox.txt"
 set "TITLE=FoxTrace Firefox 155.0 内核"
 set "TAG=firefox-155.0"
