@@ -7,12 +7,12 @@ FoxTrace 双端环境管理器配套的**自编译定制内核**下载仓库。�
 | 内核 | 版本 | 下载文件 | 大小 | SHA256（前 16 位） |
 | --- | --- | --- | --- | --- |
 | Firefox | 155.0 | [Firefox-155.0-win64-20261007.zip](../../releases/download/firefox-155.0/Firefox-155.0-win64-20261007.zip) | 128.6 MB | `8F8EDB790E5BA365` |
-| Chromium | 154.0.8037.0 | [FoxChrome-154.0.8037.0-win64-20261007.zip](../../releases/download/chromium-154.0/FoxChrome-154.0.8037.0-win64-20261007.zip) | 273.2 MB | `DDCD3676959E8092` |
+| Chromium | 154.0.8037.0 | [FoxChrome-154.0.8037.0-win64-20261007b.zip](../../releases/download/chromium-154.0/FoxChrome-154.0.8037.0-win64-20261007b.zip) | 273.2 MB | `49039F5A0F2D7CB1` |
 
 完整 SHA256 见 Release 附件 `SHA256SUMS-firefox.txt` / `SHA256SUMS-chromium.txt`。
 解压后：Firefox 约 340 MB（8931 个条目，顶层目录 `firefox155\`），Chromium 约 715 MB（522 个条目，顶层目录 `chromium154\`）。
 
-> 上一代（`…-20261002.zip`）仍保留在各自的 Release 里，可随时回退；管理器默认下载的是上表这一版。
+> 历代版本（`…-20261002.zip`、`…-20261007.zip`）仍保留在各自的 Release 里，可随时回退；管理器默认下载的是上表这一版。`SHA256SUMS-chromium.txt` 同时列出历代包的哈希。
 > 升级内核对 `kernel_downloader.py` 里的 `sha256` / `zip_bytes` 有硬校验，**内核与管理器请一并更新**。
 
 ## 使用要求
@@ -61,7 +61,7 @@ GitHub 在国内部分网络环境下直连缓慢或超时。两种解决办法�
 
 ```
 https://gh-proxy.com/https://github.com/Chen168886/foxtrace-kernels/releases/download/firefox-155.0/Firefox-155.0-win64-20261007.zip
-https://gh-proxy.com/https://github.com/Chen168886/foxtrace-kernels/releases/download/chromium-154.0/FoxChrome-154.0.8037.0-win64-20261007.zip
+https://gh-proxy.com/https://github.com/Chen168886/foxtrace-kernels/releases/download/chromium-154.0/FoxChrome-154.0.8037.0-win64-20261007b.zip
 ```
 
 常用前缀（任选其一，公共加速服务稳定性不保证，失效可换一个）：
@@ -82,7 +82,7 @@ https://gh-proxy.com/https://github.com/Chen168886/foxtrace-kernels/releases/dow
 
 **Firefox 155.0**：基于 Mozilla Firefox 155.0 源码自编译（BuildID `20261002165256`），未做品牌定制，界面与官方 155.0 一致；本批次在**渲染与读取路径**上做了内核侧定制，使同一环境在多次启动 / 多次读取时给出**一致**的结果（面向自动化与一致性测试场景），此外行为与官方 155.0 相同；随包附带 geckodriver 0.37.1（与内核版本匹配，**请勿混用官方驱动**）。
 
-**Chromium 154.0.8037.0**：基于 Chromium 154.0.8037.0 源码自编译，未做品牌定制；本批次在**画布 / 图形（WebGL、WebGPU）/ 音频 / 字体 / 几何等读取路径**上做了内核侧定制，目标同样是"同一环境多次读取结果一致"；此外行为与官方 154.0.8037.0 相同。随包附带 chromedriver 154.0.8037.0（与内核同源编译、版本匹配，**请勿混用官方驱动**）。主程序为 `chrome.exe`，另附改名副本 `FoxChrome.exe`（部分安全软件会按文件名拦截非系统目录下未签名的 `chrome.exe`，改名副本不受影响）；两者同时存在时管理器优先使用 `FoxChrome.exe`。
+**Chromium 154.0.8037.0**：基于 Chromium 154.0.8037.0 源码自编译，未做品牌定制；本批次在**画布 / 图形（WebGL、WebGPU）/ 音频 / 字体 / 几何等读取路径**上做了内核侧定制，目标同样是"同一环境多次读取结果一致"；此外行为与官方 154.0.8037.0 相同。**20261007b 批次修掉了画布在「先后多次读取」时结果可能变化的问题**（真实浏览器对同一画布反复读取必然完全一致），只替换内核二进制、能力集合未变。随包附带 chromedriver 154.0.8037.0（与内核同源编译、版本匹配，**请勿混用官方驱动**）。主程序为 `chrome.exe`，另附改名副本 `FoxChrome.exe`（部分安全软件会按文件名拦截非系统目录下未签名的 `chrome.exe`，改名副本不受影响）；两者同时存在时管理器优先使用 `FoxChrome.exe`。
 
 ## 开源许可
 
