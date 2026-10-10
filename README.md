@@ -8,12 +8,13 @@ FoxTrace 双端环境管理器配套的**自编译定制内核**下载仓库。�
 | --- | --- | --- | --- | --- |
 | Firefox | **157.0.1**（最新；含防检测修复） | [Firefox-157.0.1-win64-20261009.zip](../../releases/download/firefox-157.0/Firefox-157.0.1-win64-20261009.zip) | 132.8 MB | `2B71DBC343314C37` |
 | Firefox | 155.0（保留，可回退） | [Firefox-155.0-win64-20261007b.zip](../../releases/download/firefox-155.0/Firefox-155.0-win64-20261007b.zip) | 128.6 MB | `1CAF7C6C9E3CF56A` |
-| Chromium | 154.0.8037.0 | [FoxChrome-154.0.8037.0-win64-20261007e.zip](../../releases/download/chromium-154.0/FoxChrome-154.0.8037.0-win64-20261007e.zip) | 273.2 MB | `2D3C2353201B2CF4` |
+| Chromium | **157.0.8089.0**（最新；含防检测修复） | [FoxChrome-157.0.8089.0-win64-20261010.zip](../../releases/download/chromium-157.0/FoxChrome-157.0.8089.0-win64-20261010.zip) | 274.9 MB | `CBF8D659BF5837AC` |
+| Chromium | 154.0.8037.0（保留，可回退） | [FoxChrome-154.0.8037.0-win64-20261007e.zip](../../releases/download/chromium-154.0/FoxChrome-154.0.8037.0-win64-20261007e.zip) | 273.2 MB | `2D3C2353201B2CF4` |
 
 完整 SHA256 见 Release 附件 `SHA256SUMS-firefox.txt` / `SHA256SUMS-chromium.txt`。
-解压后：Firefox **157** 约 367 MB（8087 个条目，顶层目录 `firefox157\`）；Firefox **155** 约 340 MB（8931 个条目，顶层目录 `firefox155\`）；Chromium 约 715 MB（522 个条目，顶层目录 `chromium154\`）。
+解压后：Firefox **157** 约 367 MB（8087 个条目，顶层目录 `firefox157\`）；Firefox **155** 约 340 MB（8931 个条目，顶层目录 `firefox155\`）；Chromium **157** 约 720 MB（561 个文件，顶层目录 `chromium157\`）；Chromium **154** 约 715 MB（522 个条目，顶层目录 `chromium154\`）。
 
-> **Firefox 155.0 与 157.0.1 是两个独立 Release（tag `firefox-155.0` / `firefox-157.0`），都完整保留**，可随时切换或回退。管理器**默认下载**哪一版以 `kernel_downloader.py` 里的配置为准。
+> **每个引擎的两个版本都是各自独立的 Release，都完整保留**：Firefox 用 tag `firefox-155.0` / `firefox-157.0`，Chromium 用 tag `chromium-154.0` / `chromium-157.0`，可随时切换或回退，两个内核目录也可以同时存在。管理器**默认下载**哪一版以 `kernel_downloader.py` 里的配置为准。
 > 历代版本（`…-20261002.zip`、`…-20261007.zip`、`…-20261007b/c/d.zip` 等）仍保留在各自的 Release 里。两个 `SHA256SUMS-*.txt` 都同时列出历代包的哈希。
 > 升级内核对 `kernel_downloader.py` 里的 `sha256` / `zip_bytes` 有硬校验，**内核与管理器请一并更新**。
 
@@ -45,13 +46,17 @@ XiTrace 管理器内置了内核下载：新建/编辑测试环境 → 内核下
    ├─ firefox155\          （155.0 内核；可与 157 并存，按需保留）
    │   ├─ firefox.exe
    │   └─ geckodriver.exe
-   └─ chromium154\
+   ├─ chromium157\         （157.0.8089.0 内核）
+   │   ├─ chrome.exe
+   │   ├─ FoxChrome.exe
+   │   └─ chromedriver.exe
+   └─ chromium154\         （154.0.8037.0 内核；可与 157 并存，按需保留）
        ├─ chrome.exe
        ├─ FoxChrome.exe
        └─ chromedriver.exe
    ```
 
-   两个内核可只装其一，也可同时装。
+   每个引擎都可以只装其一，也可以两个版本同时装（内核下拉框按版本各列一项）。
 3. 启动管理器，新建/编辑环境时，内核下拉框会自动出现刚解压的内核；也可在全局设置中指定默认内核路径。
 
 每个包内都附带**与内核同源编译 / 版本匹配**的驱动（Firefox → geckodriver，Chromium → chromedriver），无需另外下载。
@@ -67,6 +72,7 @@ GitHub 在国内部分网络环境下直连缓慢或超时。两种解决办法�
 ```
 https://gh-proxy.com/https://github.com/Chen168886/foxtrace-kernels/releases/download/firefox-157.0/Firefox-157.0.1-win64-20261009.zip
 https://gh-proxy.com/https://github.com/Chen168886/foxtrace-kernels/releases/download/firefox-155.0/Firefox-155.0-win64-20261007b.zip
+https://gh-proxy.com/https://github.com/Chen168886/foxtrace-kernels/releases/download/chromium-157.0/FoxChrome-157.0.8089.0-win64-20261010.zip
 https://gh-proxy.com/https://github.com/Chen168886/foxtrace-kernels/releases/download/chromium-154.0/FoxChrome-154.0.8037.0-win64-20261007e.zip
 ```
 
@@ -90,7 +96,9 @@ https://gh-proxy.com/https://github.com/Chen168886/foxtrace-kernels/releases/dow
 
 **Firefox 155.0**（保留版本，可回退）：基于 Mozilla Firefox 155.0 源码自编译（BuildID `20261002165256`），未做品牌定制，界面与官方 155.0 一致；本批次在**渲染与读取路径**上做了内核侧定制，使同一环境在多次启动 / 多次读取时给出**一致**的结果（面向自动化与一致性测试场景），此外行为与官方 155.0 相同；**20261007b 批次新增「环境语言 / 时区」内核通道** —— 让页面脚本看到的区域规则（日期、数字、排序）与时区跟环境配置一致（此前时区在 Gecko 侧**完全没有通道**，语言也只影响请求头与 `navigator.language`，页面脚本里的区域规则仍沿用本机设置）。随包附带 geckodriver 0.37.1（与内核版本匹配，**请勿混用官方驱动**）。
 
-**Chromium 154.0.8037.0**：基于 Chromium 154.0.8037.0 源码自编译，未做品牌定制；本批次在**画布 / 图形（WebGL、WebGPU）/ 音频 / 字体 / 几何等读取路径**上做了内核侧定制，目标同样是"同一环境多次读取结果一致"；此外行为与官方 154.0.8037.0 相同。**20261007d 批次新增「环境时区」内核通道** —— 此前时区只能通过调试协议下发，而调试协议只在浏览器被自动化工具接管时生效，用管理器「打开」按钮正常启动的浏览器根本拿不到时区设置，于是「语言设成某地区、时区却还是本机」本身就成了自相矛盾的信号；现在正常启动同样生效（含子框架与 Worker）。**20261007e 批次修掉「音频两条读取 API 结果不一致」**：此前只有 `getChannelData()` 会注入确定性噪声，而 `copyFromChannel()` 拿到的仍是**干净数据** —— 同一个 buffer 两个标准 API 自相矛盾，交叉比对一次就能被识别；现在 `copyFromChannel`（含带 `buffer_offset` 的部分拷贝）与 `getChannelData` 走同一条判定、给出同一份数据。随包附带 chromedriver 154.0.8037.0（与内核同源编译、版本匹配，**请勿混用官方驱动**）。主程序为 `chrome.exe`，另附改名副本 `FoxChrome.exe`（部分安全软件会按文件名拦截非系统目录下未签名的 `chrome.exe`，改名副本不受影响）；两者同时存在时管理器优先使用 `FoxChrome.exe`。
+**Chromium 157.0.8089.0**（最新）：基于 Chromium 157.0.8089.0 源码自编译，未做品牌定制，界面与官方 157.0.8089.0 一致。相对 154.0.8037.0 批次：① **上游大版本升级 154 → 157.0.8089.0**，整套指纹与防检测改造已完整移植到新源码树，**能力集与 154 完全一致**（指纹串扫逐项对齐：`foxtrace-fp`×3 / `foxtrace-fp-cap`×1 / `foxtrace-env-number`×1，无缺项无多余项）；② **新增防自动化检测修复（必需）** —— `navigator.webdriver` **恒为 `false`**。`--enable-automation` 是 Chromium **强制**把 `navigator.webdriver` 置真的开关，官方 157 内核带上它实测返回 `true`，而本内核带同一参数仍返回 `false`（差分测试证实该改造确实编入且生效），项目自带探针 `probe_chromium_webdriver.py` 4/4 通过。指纹与一致性能力（Canvas / readPixels / Audio / WebGL / GL 扩展 / 字体白名单 / 时区）沿用 154 批次，启动通道仍为 `--foxtrace-fp=k=v;...`，能力令牌沿用 `…-webgpu-tz`。随包附带 chromedriver 157.0.8089.0（与内核同源编译、版本匹配，**请勿混用官方驱动**）。主程序为 `chrome.exe`，另附改名副本 `FoxChrome.exe`（部分安全软件会按文件名拦截非系统目录下未签名的 `chrome.exe`，改名副本不受影响）；两者同时存在时管理器优先使用 `FoxChrome.exe`。
+
+**Chromium 154.0.8037.0**（保留版本，可回退）：基于 Chromium 154.0.8037.0 源码自编译，未做品牌定制；本批次在**画布 / 图形（WebGL、WebGPU）/ 音频 / 字体 / 几何等读取路径**上做了内核侧定制，目标同样是"同一环境多次读取结果一致"；此外行为与官方 154.0.8037.0 相同。**20261007d 批次新增「环境时区」内核通道** —— 此前时区只能通过调试协议下发，而调试协议只在浏览器被自动化工具接管时生效，用管理器「打开」按钮正常启动的浏览器根本拿不到时区设置，于是「语言设成某地区、时区却还是本机」本身就成了自相矛盾的信号；现在正常启动同样生效（含子框架与 Worker）。**20261007e 批次修掉「音频两条读取 API 结果不一致」**：此前只有 `getChannelData()` 会注入确定性噪声，而 `copyFromChannel()` 拿到的仍是**干净数据** —— 同一个 buffer 两个标准 API 自相矛盾，交叉比对一次就能被识别；现在 `copyFromChannel`（含带 `buffer_offset` 的部分拷贝）与 `getChannelData` 走同一条判定、给出同一份数据。随包附带 chromedriver 154.0.8037.0（与内核同源编译、版本匹配，**请勿混用官方驱动**）。主程序为 `chrome.exe`，另附改名副本 `FoxChrome.exe`（部分安全软件会按文件名拦截非系统目录下未签名的 `chrome.exe`，改名副本不受影响）；两者同时存在时管理器优先使用 `FoxChrome.exe`。
 
 ## 开源许可
 
