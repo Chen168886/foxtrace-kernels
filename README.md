@@ -6,15 +6,16 @@ FoxTrace 双端环境管理器配套的**自编译定制内核**下载仓库。�
 
 | 内核 | 版本 | 下载文件 | 大小 | SHA256（前 16 位） |
 | --- | --- | --- | --- | --- |
-| Firefox | **157.0.1**（最新；含防检测修复） | [Firefox-157.0.1-win64-20261009.zip](../../releases/download/firefox-157.0/Firefox-157.0.1-win64-20261009.zip) | 132.8 MB | `2B71DBC343314C37` |
+| Firefox | **159.0**（最新；含防检测修复） | [Firefox-159.0-win64-20261030.zip](../../releases/download/firefox-159.0/Firefox-159.0-win64-20261030.zip) | 145.3 MB | `5D00533F8F612C3F` |
+| Firefox | 157.0.1（保留，可回退） | [Firefox-157.0.1-win64-20261009.zip](../../releases/download/firefox-157.0/Firefox-157.0.1-win64-20261009.zip) | 132.8 MB | `2B71DBC343314C37` |
 | Firefox | 155.0（保留，可回退） | [Firefox-155.0-win64-20261007b.zip](../../releases/download/firefox-155.0/Firefox-155.0-win64-20261007b.zip) | 128.6 MB | `1CAF7C6C9E3CF56A` |
 | Chromium | **157.0.8089.0**（最新；含防检测修复） | [FoxChrome-157.0.8089.0-win64-20261010.zip](../../releases/download/chromium-157.0/FoxChrome-157.0.8089.0-win64-20261010.zip) | 274.9 MB | `CBF8D659BF5837AC` |
 | Chromium | 154.0.8037.0（保留，可回退） | [FoxChrome-154.0.8037.0-win64-20261007e.zip](../../releases/download/chromium-154.0/FoxChrome-154.0.8037.0-win64-20261007e.zip) | 273.2 MB | `2D3C2353201B2CF4` |
 
 完整 SHA256 见 Release 附件 `SHA256SUMS-firefox.txt` / `SHA256SUMS-chromium.txt`。
-解压后：Firefox **157** 约 367 MB（8087 个条目，顶层目录 `firefox157\`）；Firefox **155** 约 340 MB（8931 个条目，顶层目录 `firefox155\`）；Chromium **157** 约 720 MB（561 个文件，顶层目录 `chromium157\`）；Chromium **154** 约 715 MB（522 个条目，顶层目录 `chromium154\`）。
+解压后：Firefox **159** 约 398 MB（8280 个条目，顶层目录 `firefox159\`）；Firefox **157** 约 367 MB（8087 个条目，顶层目录 `firefox157\`）；Firefox **155** 约 340 MB（8931 个条目，顶层目录 `firefox155\`）；Chromium **157** 约 720 MB（561 个文件，顶层目录 `chromium157\`）；Chromium **154** 约 715 MB（522 个条目，顶层目录 `chromium154\`）。
 
-> **每个引擎的两个版本都是各自独立的 Release，都完整保留**：Firefox 用 tag `firefox-155.0` / `firefox-157.0`，Chromium 用 tag `chromium-154.0` / `chromium-157.0`，可随时切换或回退，两个内核目录也可以同时存在。管理器**默认下载**哪一版以 `kernel_downloader.py` 里的配置为准。
+> **每个引擎的各个版本都是各自独立的 Release，都完整保留**：Firefox 用 tag `firefox-155.0` / `firefox-157.0` / `firefox-159.0`，Chromium 用 tag `chromium-154.0` / `chromium-157.0`，可随时切换或回退，多个内核目录也可以同时存在。管理器**默认下载**哪一版以 `kernel_downloader.py` 里的配置为准。
 > 历代版本（`…-20261002.zip`、`…-20261007.zip`、`…-20261007b/c/d.zip` 等）仍保留在各自的 Release 里。两个 `SHA256SUMS-*.txt` 都同时列出历代包的哈希。
 > 升级内核对 `kernel_downloader.py` 里的 `sha256` / `zip_bytes` 有硬校验，**内核与管理器请一并更新**。
 
@@ -40,10 +41,13 @@ XiTrace 管理器内置了内核下载：新建/编辑测试环境 → 内核下
    ```
    XiTrace 管理器目录\
    ├─ XiTrace.exe
-   ├─ firefox157\          （157.0.1 内核）
+   ├─ firefox159\          （159.0 内核）
    │   ├─ firefox.exe
    │   └─ geckodriver.exe
-   ├─ firefox155\          （155.0 内核；可与 157 并存，按需保留）
+   ├─ firefox157\          （157.0.1 内核；可与 159 并存，按需保留）
+   │   ├─ firefox.exe
+   │   └─ geckodriver.exe
+   ├─ firefox155\          （155.0 内核；可与 159 并存，按需保留）
    │   ├─ firefox.exe
    │   └─ geckodriver.exe
    ├─ chromium157\         （157.0.8089.0 内核）
@@ -70,6 +74,7 @@ GitHub 在国内部分网络环境下直连缓慢或超时。两种解决办法�
 **手动下载**：把下面的加速前缀直接拼接在下载直链前面即可，例如：
 
 ```
+https://gh-proxy.com/https://github.com/Chen168886/foxtrace-kernels/releases/download/firefox-159.0/Firefox-159.0-win64-20261030.zip
 https://gh-proxy.com/https://github.com/Chen168886/foxtrace-kernels/releases/download/firefox-157.0/Firefox-157.0.1-win64-20261009.zip
 https://gh-proxy.com/https://github.com/Chen168886/foxtrace-kernels/releases/download/firefox-155.0/Firefox-155.0-win64-20261007b.zip
 https://gh-proxy.com/https://github.com/Chen168886/foxtrace-kernels/releases/download/chromium-157.0/FoxChrome-157.0.8089.0-win64-20261010.zip
@@ -92,7 +97,9 @@ https://gh-proxy.com/https://github.com/Chen168886/foxtrace-kernels/releases/dow
 
 ## 内核说明
 
-**Firefox 157.0.1**（最新）：基于 Mozilla Firefox 157.0.1 源码自编译（BuildID `20261009183206`），未做品牌定制，界面与官方 157.0.1 一致。相对 155.0 批次：① 上游版本升级，指纹补丁在 157.0.1 上 **32 hunk 全部干净应用、0 冲突**；② **新增两项防检测修复（必需）** —— `navigator.webdriver` 恒为 `false`（原实现会查询 Marionette/RemoteAgent，被 geckodriver 驱动时返回 `true`，页面脚本一行即可识别），以及去除窗口顶部红色"受远程控制"标记（原实现会在 `<html>` 上写 `remotecontrol="true"` 并点亮红色图标，可被 CSS/DOM 直接读取）。指纹与一致性能力（Canvas/WebGL/WebGPU、Audio、字体白名单、几何、屏幕、语言/时区）沿用 155 批次。随包附带 geckodriver 0.37.1（与内核版本匹配，**请勿混用官方驱动**）。
+**Firefox 159.0**（最新）：基于 Mozilla Firefox 159.0 源码自编译（BuildID `20261030113449`），未做品牌定制，界面与官方 159.0 一致。相对 157.0.1 批次：① 上游跨 2 个大版本升级（Mozilla 自 155 起改为两周一个大版本），指纹补丁 **13 个文件全部干净应用、0 冲突**，仅 `AbstractRange.cpp` 一处 `fuzz 2`（159 删掉了 `#include "nsRange.h"`，插入点仍正确）；② 防检测修复沿用并重新验证 —— `navigator.webdriver` 恒为 `false`（geckodriver 驱动下实测 `false`，未打补丁时应为 `true`），窗口顶部"受远程控制"标记已去除；③ 指纹能力与 157 一致（Canvas / WebGL / readPixels / Audio / 几何 / 屏幕 / 语言时区）。随包附带 geckodriver 0.37.1（与内核版本匹配，**请勿混用官方驱动**）。
+
+**Firefox 157.0.1**（保留版本，可回退）：基于 Mozilla Firefox 157.0.1 源码自编译（BuildID `20261009183206`），未做品牌定制，界面与官方 157.0.1 一致。相对 155.0 批次：① 上游版本升级，指纹补丁在 157.0.1 上 **32 hunk 全部干净应用、0 冲突**；② **新增两项防检测修复（必需）** —— `navigator.webdriver` 恒为 `false`（原实现会查询 Marionette/RemoteAgent，被 geckodriver 驱动时返回 `true`，页面脚本一行即可识别），以及去除窗口顶部红色"受远程控制"标记（原实现会在 `<html>` 上写 `remotecontrol="true"` 并点亮红色图标，可被 CSS/DOM 直接读取）。指纹与一致性能力（Canvas/WebGL/WebGPU、Audio、字体白名单、几何、屏幕、语言/时区）沿用 155 批次。随包附带 geckodriver 0.37.1（与内核版本匹配，**请勿混用官方驱动**）。
 
 **Firefox 155.0**（保留版本，可回退）：基于 Mozilla Firefox 155.0 源码自编译（BuildID `20261002165256`），未做品牌定制，界面与官方 155.0 一致；本批次在**渲染与读取路径**上做了内核侧定制，使同一环境在多次启动 / 多次读取时给出**一致**的结果（面向自动化与一致性测试场景），此外行为与官方 155.0 相同；**20261007b 批次新增「环境语言 / 时区」内核通道** —— 让页面脚本看到的区域规则（日期、数字、排序）与时区跟环境配置一致（此前时区在 Gecko 侧**完全没有通道**，语言也只影响请求头与 `navigator.language`，页面脚本里的区域规则仍沿用本机设置）。随包附带 geckodriver 0.37.1（与内核版本匹配，**请勿混用官方驱动**）。
 
