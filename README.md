@@ -6,11 +6,13 @@ FoxTrace 双端环境管理器配套的**自编译定制内核**下载仓库。�
 
 | 内核 | 版本 | 日期 | 下载文件 | 大小 | SHA256（前 16 位） |
 | --- | --- | --- | --- | --- | --- |
-| Firefox | **159.0**（最新；含防检测修复） | 2026‑10‑30 | [Firefox-159.0-win64-20261030.zip](../../releases/download/firefox-159.0/Firefox-159.0-win64-20261030.zip) | 145.3 MB | `5D00533F8F612C3F` |
-| Firefox | 157.0.1（保留，可回退） | 2026‑10‑30 | [Firefox-157.0.1-win64-20261009.zip](../../releases/download/firefox-157.0/Firefox-157.0.1-win64-20261009.zip) | 132.8 MB | `2B71DBC343314C37` |
-| Firefox | 155.0（保留，可回退） | 2026‑10‑30 | [Firefox-155.0-win64-20261007b.zip](../../releases/download/firefox-155.0/Firefox-155.0-win64-20261007b.zip) | 128.6 MB | `1CAF7C6C9E3CF56A` |
-| Chromium | **157.0.8089.0**（最新；含防检测修复） | 2026‑10‑30 | [FoxChrome-157.0.8089.0-win64-20261010.zip](../../releases/download/chromium-157.0/FoxChrome-157.0.8089.0-win64-20261010.zip) | 274.9 MB | `CBF8D659BF5837AC` |
-| Chromium | 154.0.8037.0（保留，可回退） | 2026‑10‑30 | [FoxChrome-154.0.8037.0-win64-20261007e.zip](../../releases/download/chromium-154.0/FoxChrome-154.0.8037.0-win64-20261007e.zip) | 273.2 MB | `2D3C2353201B2CF4` |
+| Firefox | **159.0**（最新） | 2026‑10‑30 | [Firefox-159.0-win64-20261030.zip](../../releases/download/firefox-159.0/Firefox-159.0-win64-20261030.zip) | 145.3 MB | `5D00533F8F612C3F` |
+| Firefox | 157.0.1（保留） | 2026‑10‑30 | [Firefox-157.0.1-win64-20261009.zip](../../releases/download/firefox-157.0/Firefox-157.0.1-win64-20261009.zip) | 132.8 MB | `2B71DBC343314C37` |
+| Firefox | 155.0（保留） | 2026‑10‑30 | [Firefox-155.0-win64-20261007b.zip](../../releases/download/firefox-155.0/Firefox-155.0-win64-20261007b.zip) | 128.6 MB | `1CAF7C6C9E3CF56A` |
+| Chromium | **157.0.8089.0**（最新） | 2026‑10‑30 | [FoxChrome-157.0.8089.0-win64-20261010.zip](../../releases/download/chromium-157.0/FoxChrome-157.0.8089.0-win64-20261010.zip) | 274.9 MB | `CBF8D659BF5837AC` |
+| Chromium | 154.0.8037.0（保留） | 2026‑10‑30 | [FoxChrome-154.0.8037.0-win64-20261007e.zip](../../releases/download/chromium-154.0/FoxChrome-154.0.8037.0-win64-20261007e.zip) | 273.2 MB | `2D3C2353201B2CF4` |
+
+> 标注「最新」的两款（Firefox 159.0 / Chromium 157.0.8089.0）与 Firefox 157.0.1 均含**防检测修复**（`navigator.webdriver` 恒为 `false`、去除「受远程控制」标记），详见下方「内核说明」。
 
 完整 SHA256 见 Release 附件 `SHA256SUMS-firefox.txt` / `SHA256SUMS-chromium.txt`。
 解压后：Firefox **159** 约 398 MB（8280 个条目，顶层目录 `firefox159\`）；Firefox **157** 约 367 MB（8087 个条目，顶层目录 `firefox157\`）；Firefox **155** 约 340 MB（8931 个条目，顶层目录 `firefox155\`）；Chromium **157** 约 720 MB（561 个文件，顶层目录 `chromium157\`）；Chromium **154** 约 715 MB（522 个条目，顶层目录 `chromium154\`）。
