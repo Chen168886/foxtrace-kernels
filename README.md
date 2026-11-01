@@ -8,8 +8,8 @@ FoxTrace 双端环境管理器配套的**自编译定制内核**下载仓库。�
 | --- | --- | --- | --- | --- | --- |
 | Firefox | **158.0**（最新） | 2026‑11‑01 | [Firefox-158.0-win64-20261101.zip](../../releases/download/firefox-158.0/Firefox-158.0-win64-20261101.zip) | 146.5 MB | `2C3A9C530CC283FA` |
 | Firefox | 159.0（保留） | 2026‑10‑30 | [Firefox-159.0-win64-20261030.zip](../../releases/download/firefox-159.0/Firefox-159.0-win64-20261030.zip) | 145.3 MB | `5D00533F8F612C3F` |
-| Firefox | 156.0（保留） | 2026‑11‑01 | [Firefox-156.0-win64-20261101.zip](../../releases/download/firefox-156.0/Firefox-156.0-win64-20261101.zip) | 144.2 MB | `B104B7EE58961F9B` |
 | Firefox | 157.0.1（保留） | 2026‑10‑30 | [Firefox-157.0.1-win64-20261009.zip](../../releases/download/firefox-157.0/Firefox-157.0.1-win64-20261009.zip) | 132.8 MB | `2B71DBC343314C37` |
+| Firefox | 156.0（保留） | 2026‑11‑01 | [Firefox-156.0-win64-20261101.zip](../../releases/download/firefox-156.0/Firefox-156.0-win64-20261101.zip) | 144.2 MB | `B104B7EE58961F9B` |
 | Firefox | 155.0（保留） | 2026‑10‑30 | [Firefox-155.0-win64-20261007b.zip](../../releases/download/firefox-155.0/Firefox-155.0-win64-20261007b.zip) | 128.6 MB | `1CAF7C6C9E3CF56A` |
 | Chromium | **157.0.8089.0**（最新） | 2026‑10‑30 | [FoxChrome-157.0.8089.0-win64-20261010.zip](../../releases/download/chromium-157.0/FoxChrome-157.0.8089.0-win64-20261010.zip) | 274.9 MB | `CBF8D659BF5837AC` |
 | Chromium | 154.0.8037.0（保留） | 2026‑10‑30 | [FoxChrome-154.0.8037.0-win64-20261007e.zip](../../releases/download/chromium-154.0/FoxChrome-154.0.8037.0-win64-20261007e.zip) | 273.2 MB | `2D3C2353201B2CF4` |
